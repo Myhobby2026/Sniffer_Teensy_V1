@@ -330,9 +330,8 @@ class MainWindow:
         self.pages["Capture"] = CapturePage(self.content, app_ref=self)
         self.pages["Waveform"] = WaveformPage(self.content, app_ref=self)
         # placeholders for rest
-        for name, desc in PAGES:
+        for name, desc, _icon in PAGES:
             if name not in self.pages:
-                # need icon too
                 self.pages[name] = make_placeholder(self.content, name, desc, app_ref=self)
         # grid all but show one
         for p in self.pages.values():
