@@ -4,7 +4,9 @@ import math
 class WaveformCanvas(tk.Canvas):
     """Virtualized waveform. Data: list of (abs_cycles, sample). f_cpu for time conversion."""
     def __init__(self, parent, **kwargs):
-        super().__init__(parent, bg="#1E1E1E", highlightthickness=0, **kwargs)
+        # modern canvas — allow theme to override bg
+        bg = kwargs.pop("bg", "#0F0F12")
+        super().__init__(parent, bg=bg, highlightthickness=0, **kwargs)
         self.data = []  # list of (cycles, sample)
         self.f_cpu = 600_000_000
         self.channels = [{"id":i,"label":f"CH{i}","enabled":True,"color":f"#%06x"%(0x00BFFF + i*0x111111)} for i in range(16)]
@@ -82,7 +84,7 @@ class WaveformCanvas(tk.Canvas):
         w = self.winfo_width() or 1200
         h = self.winfo_height() or 500
         if not self.data:
-            self.create_text(w//2, h//2, text="No capture — connect device and start capture", fill="#9E9E9E", font=("Segoe UI", 13))
+            self.create_text(w//2, h//2, text="No capture — connect device and start capture", fill="#6B7280", font=("Segoe UI", 13))
             return
         # time range visible
         visible_start = self.t0
@@ -107,7 +109,7 @@ class WaveformCanvas(tk.Canvas):
             color = ch.get("color", "#00BFFF")
             label = ch.get("label") or f"CH{ch_id}"
             # channel label background
-            self.create_rectangle(0, y-12, self.x_offset-2, y+16, fill="#252526", outline="#3C3C3C")
+            self.create_rectangle(0, y-12, self.x_offset-2, y+16, fill="#1C1C1F", outline="#2A2A2E")
             self.create_text(6, y+2, anchor="w", text=label, fill=color, font=("Segoe UI", 11, "bold"))
             self.create_text(self.x_offset-6, y+2, anchor="e", text=f"{ch_id}", fill="#9E9E9E", font=("Segoe UI", 9))
             # waveform line for this channel
@@ -172,12 +174,12 @@ class WaveformCanvas(tk.Canvas):
             if dt_s>0:
                 freq = 1/dt_s if dt_s!=0 else 0
                 txt = f"Δ {dt_s*1e6:.3f} µs  ({dt_s*1e3:.3f} ms)  {freq:.1f} Hz"
-                self.create_rectangle(w-280, h-28, w-8, h-8, fill="#252526", outline="#3C3C3C")
+                self.create_rectangle(w-280, h-28, w-8, h-8, fill="#1C1C1F", outline="#2A2A2E")
                 self.create_text(w-144, h-18, text=txt, fill="#D4D4D4", font=("Segoe UI", 10))
 
     def _draw_ruler(self, w, h, v0, v1):
         # time ruler at top
-        self.create_rectangle(0,0,w,22, fill="#2D2D30", outline="#3C3C3C")
+        self.create_rectangle(0,0,w,22, fill="#1A1A1E", outline="#2A2A2E")
         span_s = (v1 - v0)/self.f_cpu if self.f_cpu else 1
         # choose tick step
         for exp in range(-9,2):
@@ -195,7 +197,7 @@ class WaveformCanvas(tk.Canvas):
             cyc = int(t*self.f_cpu)
             x = self.x_offset + (cyc - v0)/self.f_cpu/self.sec_per_px
             if 0 <= x <= w:
-                self.create_line(x, 0, x, 22, fill="#3C3C3C")
+                self.create_line(x, 0, x, 22, fill="#2A2A2E")
                 self.create_line(x, 22, x, 26, fill="#9E9E9E")
                 # label
                 if abs(t) < 1e-6:
