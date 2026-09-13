@@ -87,11 +87,9 @@ def apply_theme(root, name: str = "dark"):
         style.configure("TCombobox", fieldbackground=pal["bg2"], background=pal["bg2"], foreground=pal["fg"], font=("Segoe UI", 10))
         style.configure("Horizontal.TScale", background=pal["bg"])
         root.configure(bg=pal["bg"])
-        # Make menus a touch larger too
-        try:
-            root.option_add("*Menu*Font", "Segoe UI 10")
-        except Exception:
-            pass
+        # Menus already enlarged via TkMenuFont above — no extra option needed
+        # (previous root.option_add("*Menu*Font", "Segoe UI 10") broke on Windows:
+        #  Tcl parses "Segoe UI" as two tokens and expects integer for size)
     except Exception:
         pass
     return pal
