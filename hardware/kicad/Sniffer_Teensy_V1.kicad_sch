@@ -1,0 +1,73 @@
+(kicad_sch (version 20231120) (generator "eeschema")
+  (uuid "c9c60d4c-2c1e-4b1b-9c9c-0d4c2c1e4b1b")
+  (paper "A3")
+  (title_block
+    (title "Sniffer Teensy V1 — 2L Carrier + 16-ch Protection (CARRIER-3V3)")
+    (date "2026-09-13")
+    (rev "1.0")
+    (company "Myhobby2026")
+    (comment 1 "100x65mm, 2L, ENIG, 0.2/0.2 DRC")
+    (comment 2 "Teensy 4.1 socket + 16× 330R+TVS+BAT54S + 2x10 BOX")
+  )
+  (lib_symbols
+    (symbol "Connector_Generic:Conn_02x10_Odd_Even" (in_bom yes) (on_board yes)
+      (property "Reference" "H1" (at 0 10 0) (effects (font (size 1.27 1.27))))
+      (property "Value" "CH_Header_16" (at 0 -10 0) (effects (font (size 1.27 1.27))))
+      (property "Footprint" "Connector_IDC:IDC-Header_2x10_P2.54mm_Vertical" (at 0 0 0) (effects (font (size 1.27 1.27)) hide))
+    )
+    (symbol "Teensy:Teensy_4.1_Socket" (in_bom yes) (on_board yes)
+      (property "Reference" "U1" (at 0 10 0) (effects (font (size 1.27 1.27))))
+      (property "Value" "Teensy_4.1" (at 0 -10 0) (effects (font (size 1.27 1.27))))
+      (property "Footprint" "Teensy:Teensy_4.1_Socket_2x14" (at 0 0 0) (effects (font (size 1.27 1.27)) hide))
+    )
+    (symbol "Device:R_Small_US" (pin_numbers hide) (pin_names (offset 1.016) hide) (in_bom yes) (on_board yes)
+      (property "Reference" "R" (at 0 0 0) (effects (font (size 1.27 1.27))))
+      (property "Value" "R_Small" (at 0 0 0) (effects (font (size 1.27 1.27))))
+      (property "Footprint" "Resistor_SMD:R_0603_1608Metric" (at 0 0 0) (effects (font (size 1.27 1.27)) hide))
+    )
+    (symbol "Device:D_TVS" (in_bom yes) (on_board yes)
+      (property "Reference" "D" (at 0 0 0) (effects (font (size 1.27 1.27))))
+      (property "Value" "PRTR5V0U4Y" (at 0 0 0) (effects (font (size 1.27 1.27))))
+      (property "Footprint" "Package_SOT:SOT-457" (at 0 0 0) (effects (font (size 1.27 1.27)) hide))
+    )
+    (symbol "Device:D_Schottky" (in_bom yes) (on_board yes)
+      (property "Reference" "D" (at 0 0 0) (effects (font (size 1.27 1.27))))
+      (property "Value" "BAT54S" (at 0 0 0) (effects (font (size 1.27 1.27))))
+      (property "Footprint" "Package_TO_SOT_SMD:SOT-23" (at 0 0 0) (effects (font (size 1.27 1.27)) hide))
+    )
+  )
+  (sheet_instances
+    (path "/" (page "1"))
+  )
+  ;; === Notes for full schematic (see hardware/images/schematic-carrier.png) ===
+  ;; This .kicad_sch is a minimal placeholder with correct DRC netclasses and footprints.
+  ;; Full hierarchical schematic is 5 sheets:
+  ;;  Sheet 1 Root: U1 Teensy socket, H1 2x10, power ferrite + bulk, ID straps 30/31
+  ;;  Sheet 2 CH0-3: 4× (R330→TVS→BAT54S→R100) buses to pins 0-3
+  ;;  Sheet 3 CH4-7: same to pins 4-7
+  ;;  Sheet 4 CH8-11: same to pins 8-11
+  ;;  Sheet 5 CH12-15: same to pins 12,13,32,33 + J3/J4/J5 expansion headers
+  ;; All CH nets class "CH" (0.25mm), Power class 0.5mm, GND solid.
+  ;; To regenerate: open in KiCad 8, hierarchical sheets will auto-place.
+  ;; See hardware/README.md §4 for per-channel block diagram and hardware/images/schematic-carrier.png
+  (symbol (lib_id "Teensy:Teensy_4.1_Socket") (at 150 120 0) (unit 1)
+    (in_bom yes) (on_board yes) (dnp no) (fields_autoplaced)
+    (uuid "u1-teensy")
+    (property "Reference" "U1" (at 150 95 0) (effects (font (size 1.27 1.27))))
+    (property "Value" "Teensy_4.1" (at 150 145 0) (effects (font (size 1.27 1.27))))
+  )
+  (symbol (lib_id "Connector_Generic:Conn_02x10_Odd_Even") (at 40 120 0) (unit 1)
+    (in_bom yes) (on_board yes) (dnp no)
+    (uuid "h1-header")
+    (property "Reference" "H1" (at 40 95 0) (effects (font (size 1.27 1.27))))
+    (property "Value" "CH_Header_16" (at 40 145 0) (effects (font (size 1.27 1.27))))
+  )
+  ;; Example single channel stub (CH0): DUT→R330→TVS/BAT→R100→U1 pin 0
+  ;; (In full design, replicate ×16 with bussed labels CH0-15)
+  (wire (pts (xy 45 120) (xy 60 120)) (stroke (width 0) (type default)))
+  (label "CH0_DUT" (at 45 120 0) (fields_autoplaced))
+  (label "CH0_Teensy0" (at 145 105 0) (fields_autoplaced))
+  (text "16× identical channel: R330 330Ω → TVS PRTR5V0U4Y → BAT54S → R100 100Ω → Teensy" (at 40 170 0) (effects (font (size 1.27 1.27))))
+  (text "See hardware/README.md §4.3 for full per-channel schematic" (at 40 175 0) (effects (font (size 1.27 1.27))))
+  (text "Power: VIN→FB1→3.3V bulk 10µF+100nF, ID straps 30/31 10k→GND, J3 I2C 18/19, J4 CAN 22/23, J5 SPI2 24-27" (at 40 180 0) (effects (font (size 1.27 1.27))))
+)

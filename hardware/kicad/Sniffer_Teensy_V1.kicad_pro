@@ -1,0 +1,175 @@
+{
+  "board": {
+    "3dview": {
+      "axis": false,
+      "grid": false
+    },
+    "design_settings": {
+      "defaults": {
+        "board_thickness": 1.6,
+        "copper_finish": "ENIG",
+        "solder_mask_color": "black",
+        "silkscreen_color": "white"
+      },
+      "drc_exclusions": [],
+      "rule_severities": {
+        "annular_width": "error",
+        "clearance": "error",
+        "copper_sliver": "warning",
+        "courtyard_overlap": "warning",
+        "diff_pair_gap_out_of_range": "warning",
+        "diff_pair_uncoupled_length_too_long": "warning",
+        "drill_out_of_range": "error",
+        "hole_clearance": "error",
+        "hole_near_hole": "error",
+        "item_on_disabled_layer": "error",
+        "items_not_allowed": "error",
+        "length_out_of_range": "warning",
+        "lib_footprint_issues": "warning",
+        "lib_symbol_issues": "warning",
+        "micro_via_drill_out_of_range": "error",
+        "missing_courtyard": "ignore",
+        "missing_footprint": "error",
+        "net_conflict": "warning",
+        "np_through_hole": "warning",
+        "padstack": "warning",
+        "schematic_parity": "warning",
+        "shorting_items": "error",
+        "silk_over_copper": "warning",
+        "silk_overlap": "warning",
+        "through_hole_pad_without_hole": "error",
+        "track_dangling": "warning",
+        "track_width": "error",
+        "tracks_crossing": "error",
+        "too_many_vias": "warning",
+        "unconnected_items": "error",
+        "via_dangling": "warning"
+      },
+      "rules": {
+        "allow_microvias": false,
+        "allow_blind_buried_vias": false,
+        "min_copper_edge_clearance": 0.5,
+        "min_hole_to_hole": 0.25,
+        "min_hole_diameter": 0.4,
+        "min_track_width": 0.2,
+        "min_via_diameter": 0.8,
+        "min_via_drill": 0.4,
+        "min_through_hole_diameter": 0.4,
+        "min_clearance": 0.2
+      },
+      "track_widths": [0.2, 0.25, 0.5, 1.0],
+      "via_dimensions": [
+        {"diameter": 0.8, "drill": 0.4},
+        {"diameter": 1.0, "drill": 0.5}
+      ],
+      "diff_pair_dimensions": [],
+      "custom_rules": "version 1\nrule \"GND plane solid on B.Cu\"\n  constraint clearance (min 0.2mm)\n  condition \"A.Layer == 'B.Cu' && B.Layer == 'B.Cu'\"\n\nrule \"CH signals short\"\n  constraint track_width (min 0.25mm max 0.25mm)\n  condition \"A.NetClass == 'CH'\"\n\nrule \"Power 0.5mm\"\n  constraint track_width (min 0.5mm)\n  condition \"A.NetClass == 'Power'\"\n"
+    },
+    "boards": [],
+    "cvpcb": {
+      "equivalence_files": []
+    },
+    "erc": {
+      "erc_exclusions": [],
+      "rule_severities": {
+        "bus_definition_conflict": "warning",
+        "bus_entry_needed": "warning",
+        "bus_to_bus_conflict": "warning",
+        "bus_to_net_conflict": "warning",
+        "conflicting_netclasses": "warning",
+        "endpoint_off_grid": "warning",
+        "extra_units": "warning",
+        "global_label_dangling": "warning",
+        "hier_label_mismatch": "error",
+        "label_dangling": "warning",
+        "lib_symbol_issues": "warning",
+        "multiple_net_names": "warning",
+        "net_not_bus_member": "warning",
+        "no_connect_connected": "warning",
+        "no_connect_dangling": "warning",
+        "pin_not_connected": "warning",
+        "pin_not_driven": "warning",
+        "pin_to_pin": "warning",
+        "power_pin_not_driven": "warning",
+        "similar_labels": "warning",
+        "simulation_model_issue": "ignore",
+        "unannotated": "error",
+        "unit_value_mismatch": "warning"
+      }
+    },
+    "libraries": {
+      "pinned_footprint_libs": [],
+      "pinned_symbol_libs": []
+    },
+    "meta": {
+      "filename": "Sniffer_Teensy_V1.kicad_pro",
+      "version": 1
+    },
+    "net_settings": {
+      "classes": [
+        {"name": "Default", "clearance": 0.2, "diff_pair_gap": 0.25, "diff_pair_width": 0.25, "microvia_diameter": 0.3, "microvia_drill": 0.1, "track_width": 0.2, "via_diameter": 0.8, "via_drill": 0.4, "wire_width": 0.2},
+        {"name": "CH", "clearance": 0.2, "track_width": 0.25, "via_diameter": 0.8, "via_drill": 0.4},
+        {"name": "Power", "clearance": 0.2, "track_width": 0.5, "via_diameter": 1.0, "via_drill": 0.5},
+        {"name": "GND", "clearance": 0.2, "track_width": 0.5, "via_diameter": 0.8, "via_drill": 0.4}
+      ],
+      "net_colors": null,
+      "netclass_assignments": null,
+      "netclass_patterns": [
+        {"netclass": "CH", "pattern": "CH*"},
+        {"netclass": "Power", "pattern": "VIN|3V3|5V"},
+        {"netclass": "GND", "pattern": "GND"}
+      ]
+    },
+    "pcbnew": {
+      "last_paths": {
+        "gencad": "",
+        "idf": "",
+        "netlist": "",
+        "specctra_dsn": "",
+        "step": "",
+        "svg": "",
+        "vrml": ""
+      },
+      "page_layout_descr_file": ""
+    },
+    "schematic": {
+      "annotate_start_num": 0,
+      "drawing": {
+        "dashed_lines_dash_length_ratio": 12.0,
+        "dashed_lines_gap_length_ratio": 3.0,
+        "default_line_thickness": 6.0,
+        "default_text_size": 50.0,
+        "field_names": [],
+        "intersheets_ref_extra_prefix": "",
+        "intersheets_ref_prefix": "",
+        "junction_dot_diam": 15.0,
+        "label_size_ratio": 0.375,
+        "operating_point_overlay_i_precision": 3,
+        "operating_point_overlay_v_precision": 3,
+        "pin_symbol_size": 25.0,
+        "text_offset_ratio": 0.08
+      },
+      "legacy_lib_dir": "",
+      "legacy_lib_list": [],
+      "net_format_name": "",
+      "page_layout_descr_file": "",
+      "plot_directory": "",
+      "spice_current_sheet_as_root": false,
+      "spice_external_command": "spice \"%I\"",
+      "spice_model_current_sheet_as_root": true,
+      "spice_save_all_currents": false,
+      "spice_save_all_dissipations": false,
+      "spice_save_all_voltages": false,
+      "subpart_first_id": 65,
+      "subpart_id_separator": ""
+    },
+    "sheets": [
+      ["c9c60d4c-2c1e-4b1b-9c9c-0d4c2c1e4b1b", "Root"]
+    ],
+    "text_variables": {}
+  },
+  "meta": {
+    "filename": "Sniffer_Teensy_V1.kicad_pro",
+    "version": 1
+  }
+}
