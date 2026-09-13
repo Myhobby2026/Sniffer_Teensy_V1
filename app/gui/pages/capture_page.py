@@ -36,7 +36,7 @@ class CapturePage(ttk.Frame):
     def _build(self):
         top = ttk.Frame(self)
         top.pack(fill=tk.X, padx=12, pady=8)
-        ttk.Label(top, text="Capture", font=("Segoe UI", 11, "bold")).pack(side=tk.LEFT)
+        ttk.Label(top, text="Capture", font=("Segoe UI", 13, "bold")).pack(side=tk.LEFT)
         self.state_lbl = ttk.Label(top, text="Idle", foreground="#9E9E9E")
         self.state_lbl.pack(side=tk.LEFT, padx=12)
 
@@ -86,15 +86,15 @@ class CapturePage(ttk.Frame):
         self.progress = ttk.Progressbar(prog, mode="indeterminate")
         self.progress.pack(fill=tk.X, pady=4)
         self.stats_var = tk.StringVar(value="Transitions: 0  |  Elapsed: 0.0 s  |  Rate: —")
-        ttk.Label(prog, textvariable=self.stats_var, font=("Consolas", 9)).pack(anchor="w", pady=4)
-        self.log_text = tk.Text(prog, height=8, bg="#252526", fg="#D4D4D4", relief=tk.FLAT, font=("Consolas", 8))
+        ttk.Label(prog, textvariable=self.stats_var, font=("Consolas", 11)).pack(anchor="w", pady=4)
+        self.log_text = tk.Text(prog, height=8, bg="#252526", fg="#D4D4D4", relief=tk.FLAT, font=("Consolas", 10))
         self.log_text.pack(fill=tk.BOTH, expand=True, pady=4)
         self.log_text.configure(state=tk.DISABLED)
 
         # tips
         tip = ttk.Frame(self)
         tip.pack(fill=tk.X, padx=12, pady=6)
-        ttk.Label(tip, text="Tip: Start with immediate trigger and transition mode. For SPI ~1 MHz, capture 50–200 ms.", foreground="#6A9955", font=("Segoe UI", 8)).pack(anchor="w")
+        ttk.Label(tip, text="Tip: Start with immediate trigger and transition mode. For SPI ~1 MHz, capture 50–200 ms.", foreground="#6A9955", font=("Segoe UI", 10)).pack(anchor="w")
 
     def _browse(self):
         p = filedialog.asksaveasfilename(defaultextension=".stcap", filetypes=[("Sniffer capture","*.stcap"),("All","*.*")], initialfile="capture.stcap")

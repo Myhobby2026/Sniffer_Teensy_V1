@@ -16,7 +16,7 @@ class ChannelConfigPage(ttk.Frame):
     def _build(self):
         top = ttk.Frame(self)
         top.pack(fill=tk.X, padx=12, pady=8)
-        ttk.Label(top, text="Channel Configuration — 16 Independent Digital Inputs", font=("Segoe UI", 11, "bold")).pack(side=tk.LEFT)
+        ttk.Label(top, text="Channel Configuration — 16 Independent Digital Inputs", font=("Segoe UI", 13, "bold")).pack(side=tk.LEFT)
         btns = ttk.Frame(top)
         btns.pack(side=tk.RIGHT)
         ttk.Button(btns, text="Enable All", command=lambda: self._set_all(True)).pack(side=tk.LEFT, padx=2)
@@ -27,7 +27,7 @@ class ChannelConfigPage(ttk.Frame):
         hdr = ttk.Frame(self)
         hdr.pack(fill=tk.X, padx=12, pady=(4,0))
         for txt,w in [("#",3),("En",3),("Label",16),("●",2),("Trigger",10),("Pin",6)]:
-            ttk.Label(hdr, text=txt, width=w, foreground="#9E9E9E", font=("Segoe UI", 8, "bold")).pack(side=tk.LEFT, padx=2)
+            ttk.Label(hdr, text=txt, width=w, foreground="#9E9E9E", font=("Segoe UI", 10, "bold")).pack(side=tk.LEFT, padx=2)
 
         # scrollable list
         container = ttk.Frame(self)
@@ -50,7 +50,7 @@ class ChannelConfigPage(ttk.Frame):
             row = ChannelRow(inner, ch_id=i, label=f"CH{i}", enabled=True, color=color, trigger="none", on_change=self._on_row_change)
             row.pack(fill=tk.X, pady=1)
             # add pin label
-            ttk.Label(row, text=f"P{phys}", width=6, foreground="#9E9E9E").pack(side=tk.LEFT, padx=4)
+            ttk.Label(row, text=f"P{phys}", width=6, foreground="#9E9E9E", font=("Segoe UI", 10)).pack(side=tk.LEFT, padx=4)
             self.rows.append(row)
 
         # presets
@@ -68,7 +68,7 @@ class ChannelConfigPage(ttk.Frame):
         # safety note
         note = ttk.Frame(self)
         note.pack(fill=tk.X, padx=12, pady=6)
-        ttk.Label(note, text="⚠  Never exceed 0–3.3 V on GPIO without the correct cartridge. See docs/07-safety-and-wiring.md", foreground="#CCA700", font=("Segoe UI", 8)).pack(anchor="w")
+        ttk.Label(note, text="⚠  Never exceed 0–3.3 V on GPIO without the correct cartridge. See docs/07-safety-and-wiring.md", foreground="#CCA700", font=("Segoe UI", 10)).pack(anchor="w")
 
     def _set_all(self, en: bool):
         for r in self.rows:

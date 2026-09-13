@@ -20,7 +20,7 @@ class DeviceManagerPage(ttk.Frame):
     def _build(self):
         top = ttk.Frame(self)
         top.pack(fill=tk.X, padx=12, pady=8)
-        ttk.Label(top, text="Device", font=("Segoe UI", 11, "bold")).pack(side=tk.LEFT)
+        ttk.Label(top, text="Device", font=("Segoe UI", 13, "bold")).pack(side=tk.LEFT)
         ttk.Button(top, text="Refresh", command=self._refresh_ports).pack(side=tk.RIGHT, padx=4)
         ttk.Button(top, text="Simulate", command=self._simulate).pack(side=tk.RIGHT, padx=4)
 
@@ -42,16 +42,16 @@ class DeviceManagerPage(ttk.Frame):
         info.pack(fill=tk.X, padx=12, pady=8)
         self.info_vars = {}
         for i, key in enumerate(["FW Version","HW Version","F_CPU","RAM","Channels","Cartridge","Capabilities","UID"]):
-            ttk.Label(info, text=key+":", width=14, anchor="w", foreground="#9E9E9E").grid(row=i, column=0, sticky="w", pady=1)
+            ttk.Label(info, text=key+":", width=14, anchor="w", foreground="#9E9E9E", font=("Segoe UI", 10)).grid(row=i, column=0, sticky="w", pady=1)
             var = tk.StringVar(value="—")
-            ttk.Label(info, textvariable=var, anchor="w").grid(row=i, column=1, sticky="w", pady=1)
+            ttk.Label(info, textvariable=var, anchor="w", font=("Segoe UI", 10)).grid(row=i, column=1, sticky="w", pady=1)
             self.info_vars[key] = var
         info.columnconfigure(1, weight=1)
 
         # status
         stat = ttk.LabelFrame(self, text="Live Status", padding=10)
         stat.pack(fill=tk.BOTH, expand=True, padx=12, pady=8)
-        self.status_text = tk.Text(stat, height=10, bg="#252526", fg="#D4D4D4", relief=tk.FLAT, font=("Consolas", 9))
+        self.status_text = tk.Text(stat, height=10, bg="#252526", fg="#D4D4D4", relief=tk.FLAT, font=("Consolas", 11))
         self.status_text.pack(fill=tk.BOTH, expand=True)
         self.status_text.configure(state=tk.DISABLED)
 

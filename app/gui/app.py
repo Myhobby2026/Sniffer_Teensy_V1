@@ -123,8 +123,8 @@ class MainWindow:
         # nav list
         nav_frame = ttk.Frame(self.paned, width=160)
         self.paned.add(nav_frame, weight=0)
-        ttk.Label(nav_frame, text="NAVIGATOR", foreground="#9E9E9E", font=("Segoe UI", 7, "bold")).pack(anchor="w", padx=8, pady=(8,4))
-        self.nav_list = tk.Listbox(nav_frame, bg=self.pal["bg2"], fg=self.pal["fg"], selectbackground=self.pal["accent"], relief=tk.FLAT, font=("Segoe UI", 9), highlightthickness=0, activestyle="none")
+        ttk.Label(nav_frame, text="NAVIGATOR", foreground="#9E9E9E", font=("Segoe UI", 9, "bold")).pack(anchor="w", padx=8, pady=(8,4))
+        self.nav_list = tk.Listbox(nav_frame, bg=self.pal["bg2"], fg=self.pal["fg"], selectbackground=self.pal["accent"], relief=tk.FLAT, font=("Segoe UI", 11), highlightthickness=0, activestyle="none")
         for name,_desc in PAGES:
             self.nav_list.insert(tk.END, name)
         self.nav_list.pack(fill=tk.BOTH, expand=True, padx=4, pady=4)

@@ -17,9 +17,9 @@ class WaveformPage(ttk.Frame):
     def _build(self):
         top = ttk.Frame(self)
         top.pack(fill=tk.X, padx=8, pady=4)
-        ttk.Label(top, text="Waveform Viewer", font=("Segoe UI", 11, "bold")).pack(side=tk.LEFT)
+        ttk.Label(top, text="Waveform Viewer", font=("Segoe UI", 13, "bold")).pack(side=tk.LEFT)
         self.info_var = tk.StringVar(value="No capture loaded")
-        ttk.Label(top, textvariable=self.info_var, foreground="#9E9E9E", font=("Consolas", 8)).pack(side=tk.LEFT, padx=12)
+        ttk.Label(top, textvariable=self.info_var, foreground="#9E9E9E", font=("Consolas", 10)).pack(side=tk.LEFT, padx=12)
         ctrl = ttk.Frame(top)
         ctrl.pack(side=tk.RIGHT)
         ttk.Button(ctrl, text="Open…", command=self._open).pack(side=tk.LEFT, padx=2)
@@ -43,7 +43,7 @@ class WaveformPage(ttk.Frame):
 
         right = ttk.Frame(pan, width=200)
         pan.add(right, weight=0)
-        ttk.Label(right, text="Channels", font=("Segoe UI", 9, "bold")).pack(anchor="w", padx=6, pady=4)
+        ttk.Label(right, text="Channels", font=("Segoe UI", 11, "bold")).pack(anchor="w", padx=6, pady=4)
         self.ch_vars = []
         for i in range(16):
             var = tk.BooleanVar(value=True)
@@ -51,10 +51,10 @@ class WaveformPage(ttk.Frame):
             cb.pack(anchor="w", padx=6)
             self.ch_vars.append(var)
         ttk.Separator(right, orient=tk.HORIZONTAL).pack(fill=tk.X, padx=6, pady=6)
-        ttk.Label(right, text="Instructions:", foreground="#9E9E9E", font=("Segoe UI", 8, "bold")).pack(anchor="w", padx=6)
-        ttk.Label(right, text="• Wheel: zoom\n• Drag: pan\n• Click ruler: cursors\n• Ctrl+click: second cursor\n• Delta shows Δt & freq", foreground="#9E9E9E", font=("Segoe UI", 7), justify=tk.LEFT).pack(anchor="w", padx=6, pady=2)
+        ttk.Label(right, text="Instructions:", foreground="#9E9E9E", font=("Segoe UI", 10, "bold")).pack(anchor="w", padx=6)
+        ttk.Label(right, text="• Wheel: zoom\n• Drag: pan\n• Click ruler: cursors\n• Ctrl+click: second cursor\n• Delta shows Δt & freq", foreground="#9E9E9E", font=("Segoe UI", 9), justify=tk.LEFT).pack(anchor="w", padx=6, pady=2)
         # details
-        self.detail = tk.Text(right, height=10, width=28, bg="#252526", fg="#D4D4D4", relief=tk.FLAT, font=("Consolas", 7))
+        self.detail = tk.Text(right, height=10, width=28, bg="#252526", fg="#D4D4D4", relief=tk.FLAT, font=("Consolas", 9))
         self.detail.pack(fill=tk.BOTH, expand=True, padx=6, pady=6)
         self.detail.configure(state=tk.DISABLED)
 

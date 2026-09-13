@@ -3,7 +3,7 @@ import tkinter.ttk as ttk
 
 def make_placeholder(parent, title: str, subtitle: str = "", app_ref=None):
     frame = ttk.Frame(parent)
-    hdr = ttk.Label(frame, text=title, font=("Segoe UI", 14, "bold"))
+    hdr = ttk.Label(frame, text=title, font=("Segoe UI", 16, "bold"))
     hdr.pack(pady=(24,6))
     if subtitle:
         ttk.Label(frame, text=subtitle, foreground="#9E9E9E", wraplength=640, justify=tk.CENTER).pack(pady=4)
@@ -11,7 +11,7 @@ def make_placeholder(parent, title: str, subtitle: str = "", app_ref=None):
     body.pack(fill=tk.BOTH, expand=True, padx=24, pady=12)
 
     # Phase badge
-    badge = tk.Label(body, text="Available in later phases — stub UI", bg="#2D2D30", fg="#CCA700", font=("Segoe UI", 9, "bold"), padx=12, pady=6)
+    badge = tk.Label(body, text="Available in later phases — stub UI", bg="#2D2D30", fg="#CCA700", font=("Segoe UI", 11, "bold"), padx=12, pady=6)
     badge.pack(pady=8)
 
     # Feature list placeholder

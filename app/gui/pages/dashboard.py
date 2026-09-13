@@ -11,8 +11,8 @@ class DashboardPage(ttk.Frame):
     def _build(self):
         hdr = ttk.Frame(self)
         hdr.pack(fill=tk.X, padx=20, pady=16)
-        ttk.Label(hdr, text="Universal Bus Sniffer & Logic Analyzer", font=("Segoe UI", 16, "bold")).pack(anchor="w")
-        ttk.Label(hdr, text="Teensy 4.1 — 16-channel protected acquisition  •  Phase 1: Raw Transition Capture", font=("Segoe UI", 9), foreground="#9E9E9E").pack(anchor="w", pady=2)
+        ttk.Label(hdr, text="Universal Bus Sniffer & Logic Analyzer", font=("Segoe UI", 18, "bold")).pack(anchor="w")
+        ttk.Label(hdr, text="Teensy 4.1 — 16-channel protected acquisition  •  Phase 1: Raw Transition Capture", font=("Segoe UI", 11), foreground="#9E9E9E").pack(anchor="w", pady=2)
 
         # stats grid
         grid = ttk.Frame(self)
@@ -25,8 +25,8 @@ class DashboardPage(ttk.Frame):
         ]):
             card = ttk.Frame(grid, relief=tk.SOLID, borderwidth=1)
             card.grid(row=0, column=i, padx=6, sticky="nsew")
-            ttk.Label(card, text=title, font=("Segoe UI", 8), foreground="#9E9E9E").pack(anchor="w", padx=10, pady=(8,0))
-            ttk.Label(card, text=value, font=("Segoe UI", 11, "bold")).pack(anchor="w", padx=10, pady=(2,10))
+            ttk.Label(card, text=title, font=("Segoe UI", 10), foreground="#9E9E9E").pack(anchor="w", padx=10, pady=(8,0))
+            ttk.Label(card, text=value, font=("Segoe UI", 13, "bold")).pack(anchor="w", padx=10, pady=(2,10))
         grid.columnconfigure((0,1,2,3), weight=1)
 
         # quick actions
@@ -41,7 +41,7 @@ class DashboardPage(ttk.Frame):
         # recent captures
         recent = ttk.LabelFrame(self, text="Recent Captures", padding=10)
         recent.pack(fill=tk.BOTH, expand=True, padx=20, pady=10)
-        self.recent_list = tk.Listbox(recent, height=6, bg="#252526", fg="#D4D4D4", selectbackground="#007ACC", relief=tk.FLAT)
+        self.recent_list = tk.Listbox(recent, height=6, bg="#252526", fg="#D4D4D4", selectbackground="#007ACC", relief=tk.FLAT, font=("Segoe UI", 10))
         self.recent_list.pack(fill=tk.BOTH, expand=True)
         self.recent_list.bind("<Double-Button-1>", self._open_selected)
         self._refresh_recent()
@@ -59,8 +59,8 @@ class DashboardPage(ttk.Frame):
         for name, desc, mark in phases:
             row = ttk.Frame(roadmap)
             row.pack(fill=tk.X, pady=1)
-            ttk.Label(row, text=name, width=12, font=("Segoe UI", 9, "bold")).pack(side=tk.LEFT)
-            ttk.Label(row, text=desc, font=("Segoe UI", 9)).pack(side=tk.LEFT)
+            ttk.Label(row, text=name, width=12, font=("Segoe UI", 11, "bold")).pack(side=tk.LEFT)
+            ttk.Label(row, text=desc, font=("Segoe UI", 11)).pack(side=tk.LEFT)
             ttk.Label(row, text=mark, foreground="#89D185").pack(side=tk.RIGHT)
 
     def _refresh_recent(self):

@@ -10,8 +10,8 @@ class WaveformCanvas(tk.Canvas):
         self.channels = [{"id":i,"label":f"CH{i}","enabled":True,"color":f"#%06x"%(0x00BFFF + i*0x111111)} for i in range(16)]
         self.t0 = 0
         self.sec_per_px = 1e-5  # 10us per px initial
-        self.y_per_ch = 28
-        self.x_offset = 80
+        self.y_per_ch = 32
+        self.x_offset = 90
         self.cursors = []  # list of cycle positions
         self.trigger_cycle = None
         self.bind("<MouseWheel>", self._on_wheel)
@@ -82,7 +82,7 @@ class WaveformCanvas(tk.Canvas):
         w = self.winfo_width() or 1200
         h = self.winfo_height() or 500
         if not self.data:
-            self.create_text(w//2, h//2, text="No capture — connect device and start capture", fill="#9E9E9E", font=("Segoe UI", 11))
+            self.create_text(w//2, h//2, text="No capture — connect device and start capture", fill="#9E9E9E", font=("Segoe UI", 13))
             return
         # time range visible
         visible_start = self.t0
@@ -107,9 +107,9 @@ class WaveformCanvas(tk.Canvas):
             color = ch.get("color", "#00BFFF")
             label = ch.get("label") or f"CH{ch_id}"
             # channel label background
-            self.create_rectangle(0, y-10, self.x_offset-2, y+14, fill="#252526", outline="#3C3C3C")
-            self.create_text(6, y+2, anchor="w", text=label, fill=color, font=("Segoe UI", 9, "bold"))
-            self.create_text(self.x_offset-6, y+2, anchor="e", text=f"{ch_id}", fill="#9E9E9E", font=("Segoe UI", 7))
+            self.create_rectangle(0, y-12, self.x_offset-2, y+16, fill="#252526", outline="#3C3C3C")
+            self.create_text(6, y+2, anchor="w", text=label, fill=color, font=("Segoe UI", 11, "bold"))
+            self.create_text(self.x_offset-6, y+2, anchor="e", text=f"{ch_id}", fill="#9E9E9E", font=("Segoe UI", 9))
             # waveform line for this channel
             # Build polyline: x = offset + (cycles - t0)/f_cpu / sec_per_px
             points = []
@@ -156,14 +156,14 @@ class WaveformCanvas(tk.Canvas):
             tx = self.x_offset + (self.trigger_cycle - self.t0)/self.f_cpu/self.sec_per_px
             if 0 <= tx <= w:
                 self.create_line(tx, 0, tx, h, fill="#F44747", dash=(4,3), width=1)
-                self.create_text(tx+4, 12, anchor="w", text="TRIG", fill="#F44747", font=("Segoe UI", 7, "bold"))
+                self.create_text(tx+4, 12, anchor="w", text="TRIG", fill="#F44747", font=("Segoe UI", 9, "bold"))
         # cursors
         for i,cyc in enumerate(self.cursors):
             x = self.x_offset + (cyc - self.t0)/self.f_cpu/self.sec_per_px
             if 0 <= x <= w:
                 col = "#FFD700" if i==0 else "#FF8C00"
                 self.create_line(x, 0, x, h, fill=col, dash=(2,2), width=1)
-                self.create_text(x+4, 24 + i*12, anchor="w", text=f"C{i+1}", fill=col, font=("Segoe UI", 7, "bold"))
+                self.create_text(x+4, 24 + i*12, anchor="w", text=f"C{i+1}", fill=col, font=("Segoe UI", 9, "bold"))
         # delta between cursors
         if len(self.cursors)==2:
             c0,c1 = self.cursors
@@ -173,7 +173,7 @@ class WaveformCanvas(tk.Canvas):
                 freq = 1/dt_s if dt_s!=0 else 0
                 txt = f"Δ {dt_s*1e6:.3f} µs  ({dt_s*1e3:.3f} ms)  {freq:.1f} Hz"
                 self.create_rectangle(w-280, h-28, w-8, h-8, fill="#252526", outline="#3C3C3C")
-                self.create_text(w-144, h-18, text=txt, fill="#D4D4D4", font=("Segoe UI", 8))
+                self.create_text(w-144, h-18, text=txt, fill="#D4D4D4", font=("Segoe UI", 10))
 
     def _draw_ruler(self, w, h, v0, v1):
         # time ruler at top
@@ -206,10 +206,10 @@ class WaveformCanvas(tk.Canvas):
                     label = f"{t*1e3:.2f} ms"
                 else:
                     label = f"{t:.3f} s"
-                self.create_text(x+2, 11, anchor="w", text=label, fill="#9E9E9E", font=("Segoe UI", 7))
+                self.create_text(x+2, 11, anchor="w", text=label, fill="#9E9E9E", font=("Segoe UI", 9))
         # second labels for absolute? show small top right scale
         scale = f"{self.sec_per_px*1e6:.1f} µs/px"
-        self.create_text(w-8, 11, anchor="e", text=scale, fill="#6A9955", font=("Consolas", 7))
+        self.create_text(w-8, 11, anchor="e", text=scale, fill="#6A9955", font=("Consolas", 9))
 
     def set_zoom(self, sec_per_px: float):
         self.sec_per_px = max(1e-9, min(sec_per_px, 1e-2))
